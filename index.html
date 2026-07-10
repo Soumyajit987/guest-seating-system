@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Event Seating Planner</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+<div class="background"></div>
+<header>
+
+<div class="logo">
+
+<i class="fa-solid fa-chair"></i>
+
+<h1>Smart Seating Planner</h1>
+
+</div>
+
+<p>
+Create optimized seating arrangements for your events.
+</p>
+
+<p>
+Make sure the guest format should be like this { Name, Group, VIP(Yes/No), Friends(separated by |), Avoid(separated by |) }
+</p>
+
+</header>
+
+<div class="container">
+
+<div class="upload-card">
+
+<h2>
+
+<i class="fa-solid fa-file-arrow-up"></i>
+
+Upload Guest Dataset
+
+</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+<div class="file-box">
+
+<input
+type="file"
+name="file"
+id="fileInput"
+required>
+
+<label for="fileInput">
+
+<i class="fa-solid fa-cloud-arrow-up"></i>
+
+<span id="fileName">
+
+Choose TXT File
+
+</span>
+
+</label>
+
+</div>
+
+<div class="input-group">
+
+<div class="input-box">
+
+<label>
+
+<i class="fa-solid fa-table"></i>
+
+Number of Tables
+
+</label>
+
+<input
+type="number"
+name="tables"
+min="1"
+required>
+
+</div>
+
+<div class="input-box">
+
+<label>
+
+<i class="fa-solid fa-users"></i>
+
+Seats Per Table
+
+</label>
+
+<input
+type="number"
+name="capacity"
+min="1"
+required>
+
+</div>
+
+</div>
+
+<button class="generate-btn">
+
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+
+Generate Seating Plan
+
+</button>
+
+</form>
+
+</div>
+
+{% if seating %}
+
+<div class="result-section">
+
+<h2>
+
+Generated Seating Plan
+
+</h2>
+
+<div class="tables-grid">
+
+{% for table in seating %}
+
+<div class="table-card">
+
+<div class="table-header">
+
+<i class="fa-solid fa-chair"></i>
+
+Table {{ loop.index }}
+
+</div>
+
+<ul>
+
+{% for guest in table %}
+
+<li>
+
+<i class="fa-solid fa-user"></i>
+
+{{ guest }}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+<footer>
+
+DAA Mini Project
+
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
